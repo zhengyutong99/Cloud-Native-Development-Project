@@ -1,4 +1,8 @@
-# Cloud_Native-Project
+# Cloud Native Project — Taiwan utility monitor
+
+A set of containerised microservices that crawl Taiwan's open data for earthquakes, electricity supply and reservoir levels, store them in Firestore, raise severity-ranked alarms, and show them on a web dashboard.
+
+**Stack:** Docker Compose · Python crawlers · Firebase/Firestore · JavaScript + SCSS UI
 
 ## How to use
 
@@ -11,7 +15,7 @@
 - Close all the services.
 
     ``` sh
-    docker-compose up
+    docker-compose down
     ```
 
 - Crawler services
@@ -21,19 +25,13 @@
 - Alarm service
   - This service generates alarms according to the data provided in firebase collections.
   - The generated alarms are stored back into a collection named alarms.
-  - Raw alarms can be found on [3031 port of localhost](http://localhost:3001). The preview will update instantly without refreshment.
+  - Raw alarms can be found on [3001 port of localhost](http://localhost:3001). The preview will update instantly without refreshment.
   - Each alarm in firebase contains the following fields:    
       - description: this will be shown on homepage.
       - order: start from 1, keep growing until larger than 10, and then the field will be deleted.
       - service：value of either "svc_earthquake", "svc_electricity", or "svc_reservoir".
       - severity：value of either "low", "medium", or "high".
-  - New alarms will be generated automatically when there is an update of any collection or there is a refreshment of the page on [3031 port of localhost](http://localhost:3001).
-  - FIXME: 
-      - [ ] 畫面重新整理時不應該進行偵測
-      - [ ] order 會重複
-      - [ ] order 會超過10但沒被刪除
-  - TODO:
-      - [ ] 加入彈跳通知
+  - New alarms will be generated automatically when there is an update of any collection or there is a refreshment of the page on [3001 port of localhost](http://localhost:3001).
 
 - UI service
   - The UI is available on [3000 port of localhost](http://localhost:3000).
